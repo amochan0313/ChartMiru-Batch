@@ -1,0 +1,10 @@
+.idea
+.project
+.DS_Store
+htdocs/.htaccess
+logs/*
+tmp/*
+!.gitkeep
+.*.swp
+.*.swo
+.*.swn
