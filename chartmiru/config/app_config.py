@@ -13,6 +13,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI')
 
     @staticmethod
     def init_app(app):
