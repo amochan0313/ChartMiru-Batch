@@ -9,7 +9,6 @@ class Stock(db.Model):
     __tablename__ = "stock"
     id = db.Column(db.Integer, primary_key=True)
     company_id = db.Column(db.Integer)
-    market = db.Column(db.String(50))
     open = db.Column(db.Integer)
     close = db.Column(db.Integer)
     volume = db.Column(db.Integer)
@@ -26,12 +25,19 @@ class Stock(db.Model):
         self.low = low
         self.data_date = data_date
 
-    # TODO:単数insert実装する
     @staticmethod
-    def insert_stock(company_id: int, open: int, close: int, volume: int, high: int, low: int, data_date: datetime) -> int:
+    def insert_stock(
+            company_id: int,
+            open: int,
+            close: int,
+            volume: int,
+            high: int,
+            low: int,
+            data_date: datetime
+    ) -> int:
         stock = Stock(company_id, open, close, volume, high, low, data_date)
         current_session.add(stock)
-        Database.flush()
+        Database.commit()
         return stock.id
 
     @staticmethod
@@ -47,4 +53,3 @@ class Stock(db.Model):
                 volume=stock['volume'])
                 for stock in stocks], return_defaults=False)
         Database.commit()
-
