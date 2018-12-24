@@ -18,11 +18,8 @@ def register_stock():
 @click.argument('from_year', default=datetime.date.today().year)
 def register_initial_stock(stock_code: int, target_year: int, from_year: int):
     s = Stocks()
-    print(stock_code)
-    print(target_year)
     for year in range(from_year, target_year + 1):
         stocks= s.get_row_stocks(stock_code, year)
-        print(stocks)
         Stock.bulk_insert_stocks(stocks)
 
 

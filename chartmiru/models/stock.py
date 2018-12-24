@@ -36,7 +36,6 @@ class Stock(db.Model):
 
     @staticmethod
     def bulk_insert_stocks(stocks: List[Dict]) -> None:
-        print(stocks)
         current_session.bulk_save_objects(
             [Stock(
                 company_id=stock['company_id'],
