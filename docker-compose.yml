@@ -1,6 +1,21 @@
 version: '3.7'
 services:
-    chartmiru:
+    batch:
         build: .
+        container_name: chartmiru_batch
         volumes:
-            - ./:/root
+            - type: 'bind'
+              source: '/Users/yuichirotakarada/chartmiru/ChartMiru-Batch'
+              target: '/root'
+    db:
+        build: ./Database/mysql
+        volumes:
+            - 'mysql-datastore:/var/lib/mysql'
+        environment:
+            MYSQL_ROOT_PASSWORD: dragonwwwwww
+            MYSQL_DATABASE: chartmiru
+            MYSQL_USER: chartmiru
+            MYSQL_PASSWORD: Ch@rtmiru0313
+        container_name: chartmiru_db
+volumes:
+    mysql-datastore:
