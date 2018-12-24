@@ -7,8 +7,13 @@ class Csv():
     @staticmethod
     def convert_csv_list(stock_data: object, stock_code: int) -> List[Dict]:
         df = pd.read_csv(io.StringIO(stock_data.content.decode('shift-jis')), header=1)
+        df_s = df.sort_values('日付', ascending=True)
         formatted_data = []
-        for index, row in df.iterrows():
+        ''' 
+            TODO:ここで書いてる返却値を呼び出しクラスの返却値とするときはクラス側でも
+            formatした方がいいのでは？
+        '''
+        for index, row in df_s.iterrows():
             formatted_data.append(
                 {
                     'company_id': stock_code,
