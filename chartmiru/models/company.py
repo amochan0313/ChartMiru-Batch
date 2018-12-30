@@ -17,7 +17,7 @@ class Company(db.Model):
         self.initialized = initialized
 
     @staticmethod
-    def get_companies(initialized: bool = None) -> List:
+    def get_company(initialized: bool = None) -> List:
         query = current_session.query(Company)
         query = query.filter_by(initialized=initialized) if initialized is not None else query
         companies = query.all()

@@ -13,7 +13,7 @@ STOCK_DATA_INITIALIZED = True
 
 @app.cli.command('register_stock', help='各銘柄の昨日の株取得')
 def register_stock():
-    companies = Company.get_companies()
+    companies = Company.get_company(STOCK_DATA_INITIALIZED)
     s = Stocks()
     for company in companies:
         stocks = s.get_row_stocks(company['id'], datetime.date.today().year)
@@ -34,7 +34,7 @@ def register_stock():
 @click.argument('target_year', default=datetime.date.today().year)
 @click.argument('from_year', default=datetime.date.today().year)
 def register_initial_stock(target_year: int, from_year: int):
-    companies = Company.get_companies(not STOCK_DATA_INITIALIZED)
+    companies = Company.get_company(not STOCK_DATA_INITIALIZED)
     s = Stocks()
     for company in companies:
         # 初期化する時は元のデータを一度すべて消す
