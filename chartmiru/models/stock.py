@@ -53,3 +53,10 @@ class Stock(db.Model):
                 volume=stock['volume'])
                 for stock in stocks], return_defaults=False)
         Database.commit()
+
+    @staticmethod
+    def delete_stock(company_id: int) -> None:
+        query = current_session.query(Stock)
+        query = query.filter_by(company_id=company_id)
+        query.delete()
+        Database.commit()
