@@ -18,6 +18,13 @@ def register_stock():
     for company in companies:
         stocks = s.get_row_stocks(company['id'], datetime.date.today().year)
         latest_data = stocks[-1]
+        '''
+        祝日にバッチが回った時はデータが被ってしまうので更新しない
+        また何らかの理由により参照元データが更新されていない場合はDBとデータが被ってしまうので更新しない
+        '''
+        if s.exist_latest_data(company['id'], latest_data['data_date']):
+            #TODO: log出力したい
+            continue
         Stock.insert_stock(
             latest_data['company_id'],
             latest_data['open'],
