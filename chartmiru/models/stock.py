@@ -53,3 +53,23 @@ class Stock(db.Model):
                 volume=stock['volume'])
                 for stock in stocks], return_defaults=False)
         Database.commit()
+
+    @staticmethod
+    def delete_stock(company_id: int) -> None:
+        query = current_session.query(Stock)
+        query = query.filter_by(company_id=company_id)
+        query.delete()
+        Database.commit()
+
+    @staticmethod
+    def get_stock(company_id: int, data_date: datetime = None) -> List:
+        query = current_session.query(Stock)
+        query = query.filter_by(company_id=company_id)
+        query = query.filter_by(data_date=data_date) if data_date else query
+        stocks = query.all()
+        Database.commit()
+        if stocks is None:
+            return []
+        return list(map(lambda stock: {
+            'id': stock.id,
+        }, stocks))

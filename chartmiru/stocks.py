@@ -1,5 +1,6 @@
 import requests
 from typing import List, Dict
+import datetime
 
 from flask_sqlalchemy_session import current_session
 
@@ -20,3 +21,10 @@ class Stocks:
 
         except requests.exceptions.RequestException as err:
             print(err)
+
+    @classmethod
+    def exist_latest_data(cls, company_id: int, latest_data_date: datetime) -> bool:
+        stock = Stock.get_stock(company_id, latest_data_date)
+        if stock == []:
+            return False
+        return True
