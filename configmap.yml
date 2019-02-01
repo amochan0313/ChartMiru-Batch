@@ -1,0 +1,30 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: mysql-config
+data:
+  my.cnf: |
+    # Default Homebrew MySQL server config
+    [mysqld]
+    default-authentication-plugin = mysql_native_password
+
+    # Only allow connections from localhost
+    # bind-address = 127.0.0.1
+
+
+    #文字コードをutf-8に
+    character-set-server = utf8
+
+    #スローログの有効化
+    slow_query_log=ON
+    #スローログの設定
+    long_query_time=0.001
+    slow_query_log_file=/var/log/slow.log
+
+    #デフォルトのストレイジエンジン
+    default-storage-engine = InnoDB
+
+
+    [mysql]
+    #mysqlの文字コードもutf-8に
+    default-character-set = utf8

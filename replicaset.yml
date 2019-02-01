@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: chartmiru-api
+spec:
+  replicas: 1
+  selector:
+    # このセレクタでPodを選択する
+    matchLabels:
+      # deploymentで指定したラベル
+      api: chartmiru
+  template:
+    metadata:
+      labels:
+        # セレクタと同じ値
+        api: chartmiru
+    spec:
+      containers:
+          - image: asia.gcr.io/chartmiru/chartmiru_api
+            name: api
+            imagePullPolicy: IfNotPresent
+          - image: asia.gcr.io/chartmiru/nginx
+            name: web-server
+            imagePullPolicy: IfNotPresent
+            ports:
+              - containerPort: 80
