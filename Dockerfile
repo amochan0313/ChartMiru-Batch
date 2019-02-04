@@ -10,7 +10,10 @@ apt-get -y install \
 net-tools \
 python3 \
 python3-pip \
-mysql-client
+mysql-client \
+iputils-ping \
+net-tools \
+iproute2
 
 RUN pip3 install flask
 RUN pip3 install requests

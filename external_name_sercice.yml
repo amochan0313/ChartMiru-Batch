@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kabu
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: kabuoji3.com

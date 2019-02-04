@@ -7,7 +7,8 @@ spec:
   # mount db for dev
     - name: mysql-local-volume
       hostPath:
-        path: ~/chartmiru/batch.chartmiru/Database/data
+  #must be full pass
+        path: /Users/yuichirotakarada/chartmiru/ChartMiru-Batch/Database/data
         type: DirectoryOrCreate
   # mount mysql.cnf
     - name: mysql-config-volume
@@ -15,16 +16,26 @@ spec:
         name: mysql-config
         items:
         - key: my.cnf
-          path: my_test.cnf
-
+          path: my.cnf
+  # mount code for dev
+    - name: code-local-volume
+      hostPath:
+        path: /Users/yuichirotakarada/chartmiru/ChartMiru-Batch/
+        type: Directory
 
   containers:
     - image: asia.gcr.io/chartmiru/chartmiru_batch
       name: batch
       imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - name: code-local-volume
+          mountPath: /root
     - image: asia.gcr.io/chartmiru/mysql
       name: db
       imagePullPolicy: IfNotPresent
+      envFrom:
+      - secretRef:
+          name: mysql-auth
       ports:
         - containerPort: 3306
       volumeMounts:
